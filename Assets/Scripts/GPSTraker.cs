@@ -6,7 +6,7 @@ public class GPSTraker : MonoBehaviour
     public static GPSLocation currentlocation { get => _currentLocation; }
    
 
-    public float angleToNorth
+    public static float angleToNorth
     {
         get => Input.location.status == LocationServiceStatus.Running ? -Input.compass.trueHeading : 0;
     }

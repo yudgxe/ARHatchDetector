@@ -6,15 +6,18 @@ public class DistanceCalculate : MonoBehaviour
 {
     public static List<Hatch> hatches { get; private set; }
     public float raduis = 10;
+    private float distance;
 
     private void ControlDraw()
     {
         foreach (Hatch hatch in JsonReader.hatches)
         {
-            if (raduis >= MathLocation.CalculateDistance(GPSTraker.currentlocation, hatch.location) && !hatch.isProcessed)
+            distance = MathLocation.CalculateDistance(GPSTraker.currentlocation, hatch.location);
+            if (raduis >= distance && !hatch.isProcessed)
             {
-                hatch.isProcessed = true;
                 hatches.Add(hatch);
+                hatches[hatches.Count - 1].distance = distance;
+                hatches[hatches.Count - 1].isProcessed = true;
             }
         }
     }
