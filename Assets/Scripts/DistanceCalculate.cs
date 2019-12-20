@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
-public class DistanceCalculate : MonoBehaviour
+public class DistanceCalculate
 {
     public static List<Hatch> hatches { get; private set; }
     public float raduis = 10;
@@ -13,11 +11,10 @@ public class DistanceCalculate : MonoBehaviour
         foreach (Hatch hatch in JsonReader.hatches)
         {
             distance = MathLocation.CalculateDistance(GPSTraker.currentlocation, hatch.location);
-            if (raduis >= distance && !hatch.isProcessed)
+            if (raduis >= distance && hatch.state == State.unDrawed)
             {
+                hatch.distance = distance;
                 hatches.Add(hatch);
-                hatches[hatches.Count - 1].distance = distance;
-                hatches[hatches.Count - 1].isProcessed = true;
             }
         }
     }
@@ -28,23 +25,18 @@ public class DistanceCalculate : MonoBehaviour
         {
             if (raduis <= MathLocation.CalculateDistance(GPSTraker.currentlocation, hatch.location))
             {
-                hatch.toDelete = true;
+                hatch.state = State.toErase;
             }
 
-            if (!hatch.isDrawed && hatch.toDelete)
+            if (hatch.state == State.toDelete)
             {
-                hatch.isProcessed = false;
+                hatch.state = State.unDrawed;
                 hatches.Remove(hatch);
             }
         }
     }
 
-    private void Awake()
-    {
-        hatches = new List<Hatch>();
-    }
-
-    private void Update()
+    public void ControlDistance()
     {
         ControlDraw();
         ControlDelete();
