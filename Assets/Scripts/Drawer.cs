@@ -14,14 +14,14 @@ public class Drawer : MonoBehaviour
             if (DistanceCalculate.hatches[i].state != State.drawed)
             {
                 DistanceCalculate.hatches[i].state = State.drawed;
-                DistanceCalculate.hatches[i] = Instantiate(DistanceCalculate.hatches[i].model, Vector3.zero, Quaternion.identity);
+                DistanceCalculate.hatches[i].drawObject = Instantiate(DistanceCalculate.hatches[i].model, Vector3.zero, Quaternion.identity);
                 m_SessionOrigin.MakeContentAppearAt(DistanceCalculate.hatches[i].model.transform, arCamera.transform.position, Quaternion.identity);
                 m_SessionOrigin.MakeContentAppearAt(DistanceCalculate.hatches[i].model.transform, DistanceCalculate.hatches[i].position, Quaternion.identity);
             }
 
             if (DistanceCalculate.hatches[i].state == State.toErase)
             {
-                Destroy(DistanceCalculate.hatches[i].gameObject);
+                Destroy(DistanceCalculate.hatches[i].drawObject.gameObject);
                 DistanceCalculate.hatches[i].state = State.toDelete;
             }
         }

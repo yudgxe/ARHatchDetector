@@ -9,4 +9,6 @@ public class Hatch : MonoBehaviour
     public GPSLocation location;
     public string description;
     public Hatch model;
+
+    public Hatch drawObject;
 }
