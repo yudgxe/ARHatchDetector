@@ -11,7 +11,7 @@ public class Drawer : MonoBehaviour
     {
         for (int i = 0; i < DistanceCalculate.hatches.Count - 1; i++)
         {
-            if (DistanceCalculate.hatches[i].state != State.drawed)
+            if (DistanceCalculate.hatches[i].state == State.unDrawed)
             {
                 DistanceCalculate.hatches[i].state = State.drawed;
                 DistanceCalculate.hatches[i].drawObject = Instantiate(DistanceCalculate.hatches[i].model, Vector3.zero, Quaternion.identity);
